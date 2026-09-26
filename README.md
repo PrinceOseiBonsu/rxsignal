@@ -38,8 +38,8 @@ After a successful build, `npm start` runs the production app locally.
 
 - `/`: project landing page.
 - `/onboarding`: onboarding placeholder.
-- `/dashboard`: fictional medication link and Recharts setup preview.
-- `/medication/demo-medication`: dynamic medication detail placeholder.
+- `/dashboard`: three fictional medication alerts and a Recharts setup preview.
+- `/medication/demo-medication-a`: shared mock alert details.
 - Unknown medication IDs display the not-found page.
 
 Shared fixtures belong in `frontend/data/mockData.ts`, with medication types in
@@ -47,3 +47,18 @@ Shared fixtures belong in `frontend/data/mockData.ts`, with medication types in
 minimal placeholders for later phases. The demo contains no real medical data.
 
 Next.js setup reference: https://nextjs.org/docs/app/getting-started/installation
+
+## Phase 2 mock data
+
+`frontend/data/mockData.ts` exports `alerts`, the shared source for dashboard and
+medication detail pages. Each of the three fictional alerts has a unique ID,
+drug and generic names, severity, a hand-assigned priority score (0–100), an ISO
+date, headline, previous/new information, a handwritten AI-summary placeholder,
+an intelligence brief with affected population, mock FDA attribution, and an
+oldest-first timeline. `frontend/types/medication.ts` defines the required shape.
+
+Severity values are `critical`, `high`, and `moderate`. Dates are stored as
+`YYYY-MM-DD` for sorting; pages can format them for display later. All records
+have `isMock: true`. No names, safety events, or FDA attributions are verified
+medical facts; there are deliberately no fabricated FDA document links.
+The Phase 1 chart counts remain a separate fixture, not an alert-derived trend.
