@@ -92,10 +92,3 @@ export const alerts: MedicationAlert[] = [
     ],
   },
 ];
-
-// Independent Phase 1 chart fixture, not calculated from the alerts above.
-export const demoSignalData = [
-  { label: "Week 1", count: 2 },
-  { label: "Week 2", count: 4 },
-  { label: "Week 3", count: 3 },
-];

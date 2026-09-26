@@ -38,7 +38,7 @@ After a successful build, `npm start` runs the production app locally.
 
 - `/`: project landing page.
 - `/onboarding`: onboarding placeholder.
-- `/dashboard`: three fictional medication alerts and a Recharts setup preview.
+- `/dashboard`: interactive medication dashboard with three fictional alerts.
 - `/medication/demo-medication-a`: shared mock alert details.
 - Unknown medication IDs display the not-found page.
 
@@ -61,4 +61,25 @@ Severity values are `critical`, `high`, and `moderate`. Dates are stored as
 `YYYY-MM-DD` for sorting; pages can format them for display later. All records
 have `isMock: true`. No names, safety events, or FDA attributions are verified
 medical facts; there are deliberately no fabricated FDA document links.
-The Phase 1 chart counts remain a separate fixture, not an alert-derived trend.
+The dashboard chart derives weekly counts from the same alerts.
+
+## Phase 3 dashboard
+
+The dashboard uses the existing teal RxSignal theme with a responsive header,
+sidebar, physician profile, critical-update notification panel, and four summary
+cards. Search and severity filters narrow the radar; alert links open medication
+details. Sidebar links jump to the radar, watchlist, and recent update timeline.
+
+Counts and chart points are calculated from the shared mock alerts. The reporting
+week is the seven-day period ending on the newest mock alert (September 15, 2026),
+not the current calendar week. The source indicator explicitly says Demo mode.
+
+Backend review: `origin/backend-prince` at `1706ba5` exposes health, FDA drug
+lookup, label comparison, and priority scoring APIs. It does not yet expose a
+combined dashboard alert feed, watchlist, or physician profile. Phase 3 does not
+require merging or running that branch. Live integration will need an agreed
+alert response shape and source freshness information before showing Connected.
+
+Validation: production build, lint, and TypeScript passed. Browser checks covered
+search/filter reset, empty results, notifications, detail navigation, and layouts
+at 1440, 1280, 768, and 390 pixels wide.
