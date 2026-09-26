@@ -109,3 +109,11 @@ optional generic name, severity classification, headline, priority score, date
 detected, and explicit mock FDA attribution. It reads the selected ID from the
 shared alert list and retains the existing explanatory content and timeline.
 Unknown IDs continue to display the not-found page.
+
+## Phase 7 change comparison
+
+The medication detail page now shows previous and new information side by side,
+with a dated change indicator. Mobile layouts stack the cards with a downward
+arrow. `highlightedChange` is an editorially selected exact phrase from the mock
+new information, rendered as a semantic highlight; it is not an automated FDA
+diff. Longer explanations remain below, without repeating both comparison texts.

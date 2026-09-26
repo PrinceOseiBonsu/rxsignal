@@ -20,6 +20,8 @@ export interface MedicationAlert {
   headline: string;
   previousInformation: string;
   newInformation: string;
+  /** Exact phrase in newInformation, editorially selected for the mock comparison. */
+  highlightedChange: string;
   /** Handwritten placeholder for a future AI-generated summary. */
   aiSummary: string;
   intelligenceBrief: {

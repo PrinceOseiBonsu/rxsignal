@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, Database } from "lucide-react";
+import WhatChanged from "@/components/WhatChanged";
 import PriorityBadge from "@/components/PriorityBadge";
 import { formatDate } from "@/lib/dashboard";
 import { notFound } from "next/navigation";
@@ -29,14 +30,12 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
         </dl>
       </section>
       <p className="detail-demo-notice"><span className="mock-tag">DEMO</span>{mockDataNotice}</p>
+      <WhatChanged alert={medication} />
       <section className="detail-information" aria-labelledby="detail-information-title">
       <h2 id="detail-information-title">About this update</h2>
       <dl className="space-y-4">
         {[
-          ["Previous information", medication.previousInformation],
-          ["New information", medication.newInformation],
           ["AI summary (mock)", medication.aiSummary],
-          ["What changed", medication.intelligenceBrief.whatChanged],
           ["Why it matters", medication.intelligenceBrief.whyItMatters],
           ["Affected population", medication.intelligenceBrief.whoMayBeAffected],
         ].map(([label, value]) => (

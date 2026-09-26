@@ -20,6 +20,7 @@ export const alerts: MedicationAlert[] = [
       "The fictional label described routine monitoring and contained no boxed warning.",
     newInformation:
       "The fictional label now includes a boxed warning about a serious reaction during repeated treatment.",
+    highlightedChange: "a boxed warning about a serious reaction during repeated treatment",
     aiSummary:
       "Mock AI summary: A new boxed warning raises the priority of this fictional alert, especially for people receiving repeated treatment.",
     intelligenceBrief: {
@@ -48,6 +49,7 @@ export const alerts: MedicationAlert[] = [
       "The fictional label listed a general interaction precaution without naming a specific combination.",
     newInformation:
       "The fictional label adds a warning about use with Fictional Compound X and describes additional monitoring.",
+    highlightedChange: "a warning about use with Fictional Compound X",
     aiSummary:
       "Mock AI summary: The interaction section now identifies a specific fictional combination, creating a high-priority review scenario.",
     intelligenceBrief: {
@@ -76,6 +78,7 @@ export const alerts: MedicationAlert[] = [
       "The fictional label gave general follow-up information without a separate section for older adults.",
     newInformation:
       "The fictional label clarifies follow-up information for older adults without adding a boxed warning.",
+    highlightedChange: "clarifies follow-up information for older adults",
     aiSummary:
       "Mock AI summary: Follow-up wording for a fictional population has been clarified, providing a moderate-priority example for the dashboard.",
     intelligenceBrief: {

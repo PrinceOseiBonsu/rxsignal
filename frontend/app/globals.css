@@ -191,3 +191,31 @@ h2 { font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
   .detail-priority strong { font-size: 34px; }
   .detail-metadata { grid-template-columns: 1fr; gap: 18px; }
 }
+
+/* Phase 7: concise before/after comparison. */
+.change-comparison { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+.change-heading { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 23px; }
+.change-heading h2 { font-size: 25px; margin-top: 8px; }
+.change-date { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.comparison-grid { display: grid; grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr); align-items: stretch; }
+.comparison-card { padding: 24px; border-radius: 10px; border: 1px solid var(--border); }
+.comparison-before { background: #f6f8f7; }
+.comparison-after { background: #f0f8f4; border-color: #c6e1d5; }
+.comparison-card h3 { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; font-weight: 600; }
+.comparison-card h3 svg { color: #698279; margin-top: 2px; flex-shrink: 0; }
+.comparison-after h3 svg { color: var(--teal); }
+.comparison-card h3 small { display: block; color: var(--muted); font-size: 8px; letter-spacing: 1.5px; margin-top: 6px; font-weight: 500; }
+.comparison-card > p { font-size: 15px; line-height: 1.9; margin-top: 23px; color: #506460; }
+.comparison-after > p { color: #284f43; }
+.comparison-card mark { background: #ccebdd; color: #164f3e; padding: 2px 3px; border-radius: 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.comparison-arrow { align-self: center; justify-self: center; color: #799a8e; }
+.change-label { display: inline-block; margin-top: 22px; padding: 6px 9px; border: 1px solid #c6dfd1; border-radius: 5px; color: #326953; font-size: 10px; background: #e6f2eb; }
+.comparison-caption { display: flex; align-items: flex-start; gap: 7px; color: var(--muted); font-size: 10px; line-height: 1.7; margin-top: 18px; }
+.comparison-caption > span { display: inline-block; background: #ccebdd; width: 10px; height: 10px; margin-top: 3px; border-radius: 2px; flex-shrink: 0; }
+@media (max-width: 800px) {
+  .change-comparison { padding: 20px; }
+  .change-heading { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .comparison-grid { grid-template-columns: 1fr; gap: 12px; }
+  .comparison-arrow { transform: rotate(90deg); }
+  .comparison-card { padding: 20px; }
+}
