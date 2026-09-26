@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from models.drug import DrugLabel
-from services.fda_service import FDAService, FDAServiceError, DrugNotFoundError
+from backend.models.change import ChangeComparisonRequest, ChangeDetectionResult
+from backend.models.drug import DrugLabel
+from backend.services.change_detector import ChangeDetector
+from backend.services.fda_service import FDAService, FDAServiceError, DrugNotFoundError
 
 
 app = FastAPI(title="RxSignal API")
@@ -19,6 +21,7 @@ app.add_middleware(
 )
 
 fda_service = FDAService()
+change_detector = ChangeDetector()
 
 
 @app.get("/api/health")
@@ -34,3 +37,8 @@ def get_drug(drug_name: str) -> DrugLabel:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     except FDAServiceError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@app.post("/api/compare", response_model=ChangeDetectionResult)
+def compare_drug_labels(request: ChangeComparisonRequest) -> ChangeDetectionResult:
+    return change_detector.compare(request.old, request.new)

@@ -3,7 +3,7 @@ from typing import Any
 
 import httpx
 
-from models.drug import DrugLabel
+from backend.models.drug import DrugLabel
 
 
 OPENFDA_LABEL_URL = os.getenv(
