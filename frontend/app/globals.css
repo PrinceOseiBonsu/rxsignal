@@ -219,3 +219,33 @@ h2 { font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
   .comparison-arrow { transform: rotate(90deg); }
   .comparison-card { padding: 20px; }
 }
+
+/* Phase 8: a concise, clearly attributed intelligence brief. */
+.intelligence-brief { margin-top: 24px; border: 1px solid #cddfd8; border-radius: 12px; overflow: hidden; background: #fff; }
+.brief-heading { display: flex; align-items: center; gap: 13px; padding: 25px 28px; background: linear-gradient(110deg, #edf6f2, #fafcfb); border-bottom: 1px solid #e1ece6; }
+.brief-emblem { color: var(--teal); background: white; border: 1px solid #dbe9e1; border-radius: 10px; padding: 11px; flex-shrink: 0; }
+.brief-heading h2 { margin-top: 5px; font-size: 22px; }
+.brief-ai-label { margin-left: auto; display: flex; align-items: center; gap: 5px; color: #456f5e; border: 1px solid #d4e5db; background: #f4faf6; padding: 6px 8px; border-radius: 5px; font-size: 10px; white-space: nowrap; }
+.brief-sections { padding: 0 28px; }
+.brief-section { display: flex; align-items: flex-start; gap: 15px; padding: 24px 0; }
+.brief-section + .brief-section { border-top: 1px solid #eaf0ec; }
+.brief-section-icon { padding: 8px; background: #f0f6f3; border-radius: 8px; color: #4a7e69; flex-shrink: 0; }
+.brief-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #326350; font-weight: 650; margin-top: 2px; }
+.brief-section p { font-size: 14px; line-height: 1.85; margin-top: 8px; color: #4f6460; max-width: 760px; }
+.brief-disclaimer { display: flex; align-items: flex-start; gap: 9px; padding: 17px 28px; background: #f8faf9; border-top: 1px solid #e4ece7; color: #647970; font-size: 11px; line-height: 1.8; }
+.brief-disclaimer svg { flex-shrink: 0; margin-top: 2px; }
+.brief-loading-label { padding: 18px 28px 0; font-size: 12px; color: var(--muted); }
+.brief-skeleton-row { padding: 24px 0; }
+.skeleton-bar { display: block; height: 12px; background: #e6efea; border-radius: 4px; margin-bottom: 12px; animation: brief-pulse 1.7s ease-in-out infinite; }
+.skeleton-title { width: 28%; height: 10px; margin-bottom: 18px; }
+.skeleton-short { width: 72%; }
+@keyframes brief-pulse { 50% { opacity: .45; } }
+@media (prefers-reduced-motion: reduce) { .skeleton-bar { animation: none; } }
+@media (max-width: 700px) {
+  .brief-heading { padding: 20px; flex-wrap: wrap; gap: 10px; }
+  .brief-heading h2 { font-size: 20px; }
+  .brief-ai-label { margin-left: 0; }
+  .brief-sections { padding: 0 20px; }
+  .brief-section { gap: 11px; }
+  .brief-disclaimer { padding: 16px 20px; }
+}

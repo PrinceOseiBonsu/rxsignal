@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, Database } from "lucide-react";
+import IntelligenceBrief from "@/components/IntelligenceBrief";
 import WhatChanged from "@/components/WhatChanged";
 import PriorityBadge from "@/components/PriorityBadge";
 import { formatDate } from "@/lib/dashboard";
@@ -31,21 +32,7 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
       </section>
       <p className="detail-demo-notice"><span className="mock-tag">DEMO</span>{mockDataNotice}</p>
       <WhatChanged alert={medication} />
-      <section className="detail-information" aria-labelledby="detail-information-title">
-      <h2 id="detail-information-title">About this update</h2>
-      <dl className="space-y-4">
-        {[
-          ["AI summary (mock)", medication.aiSummary],
-          ["Why it matters", medication.intelligenceBrief.whyItMatters],
-          ["Affected population", medication.intelligenceBrief.whoMayBeAffected],
-        ].map(([label, value]) => (
-          <div key={label}>
-            <dt className="font-semibold">{label}</dt>
-            <dd className="text-slate-600">{value}</dd>
-          </div>
-        ))}
-      </dl>
-      </section>
+      <IntelligenceBrief brief={medication.intelligenceBrief} />
       <section className="detail-information" aria-labelledby="detail-timeline-title">
       <h2 id="detail-timeline-title">Timeline (mock)</h2>
       <ol className="list-inside list-decimal space-y-2">

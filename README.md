@@ -117,3 +117,17 @@ with a dated change indicator. Mobile layouts stack the cards with a downward
 arrow. `highlightedChange` is an editorially selected exact phrase from the mock
 new information, rendered as a semantic highlight; it is not an automated FDA
 diff. Longer explanations remain below, without repeating both comparison texts.
+
+## Phase 8 intelligence brief
+
+`IntelligenceBrief` displays What changed, Why it matters, and Who may be affected
+from the selected alert's `intelligenceBrief` field. It replaces the generic
+About this update list and explicitly labels the handwritten mock summary.
+The disclaimer asks users to review the official FDA source before clinical
+decisions without implying that the demo contains verified source material.
+
+Use `<IntelligenceBrief loading />` while a future summary request is pending;
+pass `brief` when ready. The exported `IntelligenceBriefSkeleton` includes a
+loading announcement and reduced-motion support. No artificial delay or Gemini
+request is added to the current mock flow. Live integration will also need
+error handling and accurate provenance once the backend contract is agreed.
