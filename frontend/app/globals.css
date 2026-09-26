@@ -157,3 +157,37 @@ h2 { font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
 .chart-axis-title { font-size: 10px; color: #677c81; margin-top: 20px; }
 .chart-help { font-size: 10px; color: #677c81; line-height: 1.6; margin-top: 9px; }
 .chart-table-scroll { max-height: 230px; overflow: auto; }
+
+/* Phase 6 medication overview. */
+.medication-detail { max-width: 1050px; margin: 0 auto; }
+.detail-back { display: inline-flex; align-items: center; gap: 8px; color: var(--teal); font-size: 12px; font-weight: 600; padding: 6px 0; }
+.detail-back:hover { text-decoration: underline; }
+.medication-heading { margin: 28px 0; }
+.medication-heading h1 { font-size: clamp(28px, 3vw, 38px); font-weight: 650; letter-spacing: -1px; margin-top: 10px; }
+.detail-generic { margin-top: 8px; color: var(--muted); font-size: 15px; }
+.detail-alert { border: 1px solid var(--border); border-top: 3px solid #bca357; border-radius: 12px; background: white; padding: 28px; }
+.detail-alert.critical { border-top-color: #cf6158; }.detail-alert.high { border-top-color: #d99b47; }
+.detail-alert-main { display: flex; justify-content: space-between; gap: 28px; align-items: center; }
+.detail-alert-main h2 { margin-top: 15px; font-size: clamp(20px, 2vw, 26px); line-height: 1.35; }
+.detail-alert-main > div > p { margin-top: 10px; color: var(--muted); line-height: 1.7; font-size: 13px; }
+.detail-priority { min-width: 130px; padding-left: 26px; border-left: 1px solid var(--border); text-align: right; }
+.detail-priority > span { font-size: 9px; letter-spacing: 1.3px; color: var(--muted); }
+.detail-priority strong { display: block; font-size: 48px; line-height: 1.2; font-weight: 600; margin-top: 10px; }
+.detail-priority small { font-size: 13px; font-weight: normal; color: var(--muted); }
+.detail-alert-main .detail-priority p { font-size: 10px; margin-top: 3px; }
+.detail-metadata { display: grid; grid-template-columns: 1fr 2fr; gap: 22px; border-top: 1px solid var(--border); margin-top: 26px; padding-top: 22px; }
+.detail-metadata dt { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); }
+.detail-metadata dd { font-size: 12px; line-height: 1.7; margin-top: 8px; }
+.detail-demo-notice { display: flex; align-items: flex-start; gap: 9px; font-size: 10px; line-height: 1.8; color: var(--muted); margin: 18px 0 28px; }
+.detail-demo-notice .mock-tag { margin: 0; flex-shrink: 0; }
+.detail-information { background: #fff; border: 1px solid var(--border); padding: 26px; border-radius: 12px; margin-top: 20px; }
+.detail-information > h2 { margin-bottom: 22px; }
+.detail-information dl, .detail-information ol { font-size: 13px; line-height: 1.8; }
+@media (max-width: 700px) {
+  .detail-alert, .detail-information { padding: 20px; }
+  .detail-alert-main { align-items: flex-start; gap: 16px; }
+  .detail-priority { min-width: 77px; padding-left: 12px; }
+  .detail-priority > span { font-size: 7px; letter-spacing: .4px; }
+  .detail-priority strong { font-size: 34px; }
+  .detail-metadata { grid-template-columns: 1fr; gap: 18px; }
+}

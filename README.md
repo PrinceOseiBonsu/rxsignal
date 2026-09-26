@@ -101,3 +101,11 @@ keyboard chart navigation, and a data table provide ways to inspect values.
 
 Future specialty push notifications and professional communities are recorded in
 [ROADMAP.md](ROADMAP.md) for later implementation.
+
+## Phase 6 medication details
+
+The medication detail overview includes a return link to the radar, drug and
+optional generic name, severity classification, headline, priority score, date
+detected, and explicit mock FDA attribution. It reads the selected ID from the
+shared alert list and retains the existing explanatory content and timeline.
+Unknown IDs continue to display the not-found page.

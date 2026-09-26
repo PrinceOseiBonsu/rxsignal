@@ -1,3 +1,7 @@
+import Link from "next/link";
+import { ArrowLeft, CalendarDays, Database } from "lucide-react";
+import PriorityBadge from "@/components/PriorityBadge";
+import { formatDate } from "@/lib/dashboard";
 import { notFound } from "next/navigation";
 import { alerts, mockDataNotice } from "@/data/mockData";
 
@@ -7,12 +11,26 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
   if (!medication) notFound();
 
   return (
-    <section className="space-y-3">
-      <h1 className="text-3xl font-bold">{medication.drugName}</h1>
-      <p className="text-slate-600">{mockDataNotice}</p>
-      <p>{medication.genericName}</p>
-      <p>{medication.severity} · Priority {medication.priorityScore}/100 · <time dateTime={medication.date}>{medication.date}</time></p>
-      <h2 className="text-xl font-semibold">{medication.headline}</h2>
+    <section className="medication-detail">
+      <Link href="/dashboard#radar" className="detail-back"><ArrowLeft size={16} aria-hidden="true" /> Medication Radar</Link>
+      <header className="medication-heading">
+        <p className="eyebrow">MEDICATION INTELLIGENCE</p>
+        <h1>{medication.drugName}</h1>
+        {medication.genericName && <p className="detail-generic">{medication.genericName}</p>}
+      </header>
+      <section className={`detail-alert ${medication.severity}`} aria-label="Alert overview">
+        <div className="detail-alert-main">
+          <div><PriorityBadge severity={medication.severity} /><h2>{medication.headline}</h2><p>{medication.intelligenceBrief.whatChanged}</p></div>
+          <div className="detail-priority"><span>PRIORITY SCORE</span><strong>{medication.priorityScore}<small>/100</small></strong><p>Demo score</p></div>
+        </div>
+        <dl className="detail-metadata">
+          <div><dt><CalendarDays size={15} aria-hidden="true" /> Date detected</dt><dd><time dateTime={medication.date}>{formatDate(medication.date)}</time></dd></div>
+          <div><dt><Database size={15} aria-hidden="true" /> FDA source <span className="mock-tag">MOCK</span></dt><dd>{medication.source}</dd></div>
+        </dl>
+      </section>
+      <p className="detail-demo-notice"><span className="mock-tag">DEMO</span>{mockDataNotice}</p>
+      <section className="detail-information" aria-labelledby="detail-information-title">
+      <h2 id="detail-information-title">About this update</h2>
       <dl className="space-y-4">
         {[
           ["Previous information", medication.previousInformation],
@@ -21,7 +39,6 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
           ["What changed", medication.intelligenceBrief.whatChanged],
           ["Why it matters", medication.intelligenceBrief.whyItMatters],
           ["Affected population", medication.intelligenceBrief.whoMayBeAffected],
-          ["Source (mock)", medication.source],
         ].map(([label, value]) => (
           <div key={label}>
             <dt className="font-semibold">{label}</dt>
@@ -29,14 +46,17 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
           </div>
         ))}
       </dl>
-      <h2 className="text-xl font-semibold">Timeline (mock)</h2>
+      </section>
+      <section className="detail-information" aria-labelledby="detail-timeline-title">
+      <h2 id="detail-timeline-title">Timeline (mock)</h2>
       <ol className="list-inside list-decimal space-y-2">
         {medication.timeline.map((event) => (
           <li key={event.date}>
-            <time dateTime={event.date}>{event.date}</time> — {event.label} ({event.status})
+            <time dateTime={event.date}>{formatDate(event.date)}</time> — {event.label} ({event.status})
           </li>
         ))}
       </ol>
+      </section>
     </section>
   );
 }
