@@ -83,3 +83,11 @@ alert response shape and source freshness information before showing Connected.
 Validation: production build, lint, and TypeScript passed. Browser checks covered
 search/filter reset, empty results, notifications, detail navigation, and layouts
 at 1440, 1280, 768, and 390 pixels wide.
+
+## Phase 4 medication radar
+
+Each alert is one keyboard-accessible link to its medication detail page. Cards
+show severity, drug and optional generic name, a short change headline, priority
+score, update date, and a clearly marked mock FDA source. The headline serves as
+the one-line summary; longer explanations stay on the detail page. Cards have
+subtle hover feedback, a visible focus outline, and reduced-motion support.

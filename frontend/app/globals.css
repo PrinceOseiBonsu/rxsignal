@@ -100,8 +100,8 @@ h2 { font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
 .critical .score-track span { background: #ca7166; }.high .score-track span { background: #d5a469; }
 .alert-footer { border-top: 1px solid #edf1ef; padding: 12px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 10px; color: #74837f; }
 .mock-tag { display: inline-block; font-size: 7px; letter-spacing: .7px; background: #eff3f1; color: #637b72; border: 1px solid #e0e8e3; border-radius: 3px; padding: 3px 4px; margin-left: 5px; }
-.alert-footer a { display: flex; align-items: center; gap: 6px; color: var(--teal); font-weight: 600; }
-.alert-footer a:hover, .watchlist a:hover, .timeline-panel a:hover { text-decoration: underline; }
+.alert-action { display: flex; align-items: center; gap: 6px; color: var(--teal); font-weight: 600; }
+.alert-card-link:hover .alert-action, .watchlist a:hover, .timeline-panel a:hover { text-decoration: underline; }
 .dashboard-aside { display: grid; gap: 22px; }
 .signal-chart, .watchlist, .timeline-panel { background: #fff; border: 1px solid var(--border); border-radius: 11px; padding: 23px; }
 .chart-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
@@ -125,3 +125,22 @@ h2 { font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
 @media (max-width: 950px) { .header-caption { display: none; }.page-heading { flex-direction: column; gap: 17px; }.source-status { text-align: left; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }.source-status small { margin-top: 0; }.dashboard-columns { grid-template-columns: 1fr; }.dashboard-aside { grid-template-columns: 1fr 1fr; margin-top: 8px; }.summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.summary-top { font-size: 12px; }.summary-card { padding: 18px; } }
 @media (max-width: 700px) { html { scroll-padding-top: 140px; }.app-header { height: 68px; padding: 0 18px; gap: 10px; }.brand { font-size: 23px; min-width: 0; }.header-actions { gap: 10px; }.profile-menu { padding-left: 10px; }.profile-name { display: none; }.app-shell { display: block; }.sidebar { position: sticky; top: 68px; width: 100%; height: auto; padding: 8px 10px; border-right: 0; border-bottom: 1px solid var(--border); z-index: 20; }.sidebar nav { display: flex; justify-content: space-between; gap: 3px; }.nav-link { padding: 10px 8px; gap: 5px; font-size: 10px; }.nav-link svg { width: 15px; }.nav-link.active { box-shadow: none; }.nav-caption, .sidebar-note, .sidebar-footer { display: none; }.main-content { padding: 25px 18px; }.page-heading h1 { font-size: 27px; max-width: 350px; }.page-heading > div > p:last-child { line-height: 1.7; }.summary-grid { gap: 10px; margin-bottom: 28px; }.summary-card { padding: 14px; }.summary-top { font-size: 10px; }.summary-card > strong { font-size: 30px; }.summary-card > p { font-size: 9px; }.dashboard-aside { grid-template-columns: 1fr; }.alert-card { padding: 16px 16px 0; }.alert-body h3 { font-size: 16px; }.priority-score > span { font-size: 6px; }.alert-headline { font-size: 11px; }.timeline-panel { padding: 18px; }.timeline-panel li { gap: 10px; }.timeline-panel time { width: 76px; font-size: 10px; }.notification-panel { position: fixed; top: 62px; right: 15px; }.search-field input { font-size: 10px; }.severity-select select { font-size: 10px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* A single native link makes the whole alert usable with mouse, touch, or keyboard. */
+.alert-card { transition: transform 160ms ease, box-shadow 160ms ease; }
+.alert-card-link { display: block; margin: -18px -20px 0; padding: 18px 20px 0; border-radius: 8px; }
+.alert-card:focus-within { outline: 3px solid var(--teal); outline-offset: 3px; }
+.alert-card-link:focus-visible { outline: none; }
+@media (hover: hover) {
+  .alert-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px #19383010; }
+}
+@media (min-width: 1500px) {
+  .alert-card-link { margin: -22px -24px 0; padding: 22px 24px 0; }
+}
+@media (max-width: 700px) {
+  .alert-card-link { margin: -16px -16px 0; padding: 16px 16px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .alert-card { transition: none; }
+  .alert-card:hover { transform: none; }
+}
