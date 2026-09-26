@@ -1,4 +1,6 @@
 fastapi
 httpx
+psycopg[binary]
 pytest
+python-dotenv
 uvicorn[standard]

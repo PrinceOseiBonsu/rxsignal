@@ -3,9 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.models.change import ChangeComparisonRequest, ChangeDetectionResult
 from backend.models.drug import DrugLabel
+from backend.models.history import HistoryResult, MonitoringResult
 from backend.models.priority import PriorityResult
+from backend.repositories import SnapshotRepositoryError, TigerSnapshotRepository
 from backend.services.change_detector import ChangeDetector
 from backend.services.fda_service import FDAService, FDAServiceError, DrugNotFoundError
+from backend.services.monitoring_service import MonitoringService
 from backend.services.priority_engine import PriorityEngine
 
 
@@ -25,6 +28,13 @@ app.add_middleware(
 fda_service = FDAService()
 change_detector = ChangeDetector()
 priority_engine = PriorityEngine()
+snapshot_repository = TigerSnapshotRepository()
+monitoring_service = MonitoringService(
+    fda_service=fda_service,
+    repository=snapshot_repository,
+    change_detector=change_detector,
+    priority_engine=priority_engine,
+)
 
 
 @app.get("/api/health")
@@ -51,3 +61,23 @@ def compare_drug_labels(request: ChangeComparisonRequest) -> ChangeDetectionResu
 def prioritize_drug_label_changes(request: ChangeComparisonRequest) -> PriorityResult:
     comparison = change_detector.compare(request.old, request.new)
     return priority_engine.prioritize(comparison)
+
+
+@app.post("/api/monitor/{drug_name}", response_model=MonitoringResult)
+def monitor_drug(drug_name: str) -> MonitoringResult:
+    try:
+        return monitoring_service.monitor_drug(drug_name)
+    except DrugNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except FDAServiceError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except SnapshotRepositoryError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@app.get("/api/history/{drug_name}", response_model=HistoryResult)
+def get_drug_history(drug_name: str) -> HistoryResult:
+    try:
+        return monitoring_service.get_history(drug_name)
+    except SnapshotRepositoryError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
