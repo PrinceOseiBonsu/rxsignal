@@ -61,7 +61,7 @@ Severity values are `critical`, `high`, and `moderate`. Dates are stored as
 `YYYY-MM-DD` for sorting; pages can format them for display later. All records
 have `isMock: true`. No names, safety events, or FDA attributions are verified
 medical facts; there are deliberately no fabricated FDA document links.
-The dashboard chart derives weekly counts from the same alerts.
+The dashboard chart derives daily counts from the same alerts.
 
 ## Phase 3 dashboard
 
@@ -91,3 +91,13 @@ show severity, drug and optional generic name, a short change headline, priority
 score, update date, and a clearly marked mock FDA source. The headline serves as
 the one-line summary; longer explanations stay on the detail page. Cards have
 subtle hover feedback, a visible focus outline, and reduced-motion support.
+
+## Phase 5 activity chart
+
+Medication Signal Activity shows daily counts derived from the shared alerts,
+including zero-signal days. Toggle 7 or 30 days; the window ends on the latest
+mock alert. Totals and peak counts follow the selected window. Hover/tap tooltips,
+keyboard chart navigation, and a data table provide ways to inspect values.
+
+Future specialty push notifications and professional communities are recorded in
+[ROADMAP.md](ROADMAP.md) for later implementation.

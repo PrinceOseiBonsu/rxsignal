@@ -21,21 +21,12 @@ export function getDashboardStats(alerts: MedicationAlert[]) {
   };
 }
 
-export function getSignalActivity(alerts: MedicationAlert[]) {
+export function getSignalActivity(alerts: MedicationAlert[], days = 30) {
   const latestDate = getDashboardStats(alerts).latestDate;
   if (!latestDate) return [];
   const end = Date.parse(`${latestDate}T00:00:00Z`);
-  return Array.from({ length: 4 }, (_, index) => {
-    const start = end - (27 - index * 7) * 86400000;
-    const finish = start + 6 * 86400000;
-    const date = new Date(start).toISOString().slice(0, 10);
-    return {
-      label: new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(start)),
-      date,
-      count: alerts.filter((alert) => {
-        const time = Date.parse(`${alert.date}T00:00:00Z`);
-        return time >= start && time <= finish;
-      }).length,
-    };
+  return Array.from({ length: days }, (_, index) => {
+    const date = new Date(end - (days - 1 - index) * 86400000).toISOString().slice(0, 10);
+    return { date, count: alerts.filter((alert) => alert.date === date).length };
   });
 }

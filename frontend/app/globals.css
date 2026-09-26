@@ -144,3 +144,16 @@ h2 { font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
   .alert-card { transition: none; }
   .alert-card:hover { transform: none; }
 }
+
+/* Phase 5: restrained interaction for the supporting activity chart. */
+.chart-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+.chart-toolbar .chart-legend { margin: 0; }
+.chart-range { display: flex; padding: 3px; gap: 3px; border-radius: 7px; background: #f0f5f3; }
+.chart-range button { padding: 6px 10px; border-radius: 5px; font-size: 10px; color: #607970; }
+.chart-range button[aria-pressed="true"] { background: white; color: #0f766e; box-shadow: 0 1px 4px #19383015; font-weight: 600; }
+.chart-summary { margin-top: 18px; color: #607970; font-size: 11px; }
+.chart-summary strong { font-size: 22px; color: #192d32; margin-right: 3px; }
+.chart-summary > span { float: right; margin-top: 9px; font-size: 10px; }
+.chart-axis-title { font-size: 10px; color: #677c81; margin-top: 20px; }
+.chart-help { font-size: 10px; color: #677c81; line-height: 1.6; margin-top: 9px; }
+.chart-table-scroll { max-height: 230px; overflow: auto; }
