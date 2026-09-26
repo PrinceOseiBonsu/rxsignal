@@ -216,3 +216,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Frontend dependencies, build output, and local configuration
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.env.*
+!.env.example
+.DS_Store
