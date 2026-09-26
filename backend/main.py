@@ -3,8 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.models.change import ChangeComparisonRequest, ChangeDetectionResult
 from backend.models.drug import DrugLabel
+from backend.models.priority import PriorityResult
 from backend.services.change_detector import ChangeDetector
 from backend.services.fda_service import FDAService, FDAServiceError, DrugNotFoundError
+from backend.services.priority_engine import PriorityEngine
 
 
 app = FastAPI(title="RxSignal API")
@@ -22,6 +24,7 @@ app.add_middleware(
 
 fda_service = FDAService()
 change_detector = ChangeDetector()
+priority_engine = PriorityEngine()
 
 
 @app.get("/api/health")
@@ -42,3 +45,9 @@ def get_drug(drug_name: str) -> DrugLabel:
 @app.post("/api/compare", response_model=ChangeDetectionResult)
 def compare_drug_labels(request: ChangeComparisonRequest) -> ChangeDetectionResult:
     return change_detector.compare(request.old, request.new)
+
+
+@app.post("/api/prioritize", response_model=PriorityResult)
+def prioritize_drug_label_changes(request: ChangeComparisonRequest) -> PriorityResult:
+    comparison = change_detector.compare(request.old, request.new)
+    return priority_engine.prioritize(comparison)
