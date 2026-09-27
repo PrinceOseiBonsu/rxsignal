@@ -18,10 +18,10 @@ export default function OnboardingPage() {
   const router = useRouter();
   return (
     <div className="onboarding-page">
-      <Link href="/onboarding" className="brand onboarding-brand" aria-label="RxSignal welcome"><span className="brand-icon"><Activity size={27} aria-hidden="true" /></span><span>RxSignal<span className="brand-dot">.</span></span></Link>
+      <Link href="/onboarding" className="brand onboarding-brand" aria-label="RxSignal welcome"><span className="brand-icon"><Activity size={27} aria-hidden="true" /></span><span>RxSignal</span></Link>
       <section className="onboarding-card" aria-labelledby="welcome-title">
         <p className="eyebrow">LESS SEARCHING. MORE CLARITY.</p>
-        <h1 id="welcome-title">Never miss<br />what changed<span>.</span></h1>
+        <h1 id="welcome-title">Never miss<br />what <span>changed.</span></h1>
         <p className="onboarding-value">Stay ahead of medication safety updates relevant to your practice.</p>
         <form onSubmit={(event) => { event.preventDefault(); if (specialty) router.push(`/dashboard?specialty=${encodeURIComponent(specialty)}`); }}>
           <fieldset>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AppShell from "@/components/AppShell";
 import "./globals.css";
+import "./workspace.css";
 
 export const metadata: Metadata = {
   title: "RxSignal | Medication intelligence",

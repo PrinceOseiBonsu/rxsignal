@@ -9,5 +9,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   if (pathname === "/onboarding" || pathname === "/") {
     return <main id="main-content" className="onboarding-main">{children}</main>;
   }
-  return <><Header /><div className="app-shell"><Sidebar /><main id="main-content" className="main-content">{children}</main></div></>;
+  return (
+    <div className="workspace">
+      <Sidebar />
+      <div className="workspace-main">
+        <Header detail={pathname.startsWith("/medication/")} />
+        <main id="main-content" className="main-content">{children}</main>
+      </div>
+    </div>
+  );
 }

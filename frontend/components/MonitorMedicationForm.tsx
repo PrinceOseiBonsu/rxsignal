@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AlertCircle, CheckCircle2, Plus, RefreshCw } from "lucide-react";
+import { AlertCircle, CheckCircle2, Plus, RefreshCw, Search } from "lucide-react";
 import { ApiError, monitorMedication } from "@/lib/api";
 import { ALERTS_CHANGED_EVENT } from "@/lib/dashboard";
 
@@ -20,6 +20,7 @@ export default function MonitorMedicationForm() {
   return (
     <form
       className="monitor-panel"
+      aria-busy={pending}
       onSubmit={async (event) => {
         event.preventDefault();
         const medicationName = drugName.trim();
@@ -64,32 +65,28 @@ export default function MonitorMedicationForm() {
         }
       }}
     >
-      <div className="monitor-panel-heading">
-        <span className="monitor-panel-icon" aria-hidden="true">
-          <Plus size={18} />
-        </span>
-        <div>
-          <p className="eyebrow">START MONITORING</p>
-          <h2>Monitor a medication</h2>
-          <p>Enter a medication to save its current FDA label as a baseline. Future checks are compared against it.</p>
-        </div>
-      </div>
+      <h2>Monitor a medication</h2>
 
-      <label htmlFor="monitor-drug">Medication name</label>
+      <label htmlFor="monitor-drug" className="sr-only">Medication name</label>
       <div className="monitor-action">
-        <input
-          id="monitor-drug"
-          value={drugName}
-          onChange={(event) => setDrugName(event.target.value)}
-          placeholder="Enter a generic or brand name"
-          autoComplete="off"
-          disabled={pending}
-        />
+        <div className="monitor-input">
+          <Search size={19} aria-hidden="true" />
+          <input
+            id="monitor-drug"
+            value={drugName}
+            onChange={(event) => setDrugName(event.target.value)}
+            placeholder="Enter a medication name"
+            aria-describedby="monitor-description"
+            autoComplete="off"
+            disabled={pending}
+          />
+        </div>
         <button type="submit" disabled={pending || !drugName.trim()}>
           {pending ? <RefreshCw className="spin" size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
           {pending ? "Checking FDA label..." : "Monitor medication"}
         </button>
       </div>
+      <p id="monitor-description" className="monitor-description">Establish a baseline to compare future label changes.</p>
 
       {status && (
         <div className={`monitor-result ${status.kind}`} role="status" aria-live="polite">
