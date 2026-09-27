@@ -10,10 +10,10 @@ export interface TimelineEvent {
 }
 
 export interface SourceEvidence {
-  publisher: string;
+  name: string;
   sourceType: string;
   /** ISO publication date from the source, distinct from detection date. */
-  publishedAt: string | null;
+  publishedDate: string | null;
   /** A record-specific official URL; null until supplied by the backend. */
   url: string | null;
   isMock: boolean;
@@ -21,27 +21,33 @@ export interface SourceEvidence {
 
 export interface MedicationAlert {
   id: string;
-  isMock: true;
+  isMock: boolean;
   drugName: string;
   genericName?: string;
   severity: Severity;
-  /** Hand-assigned demo score from 0 to 100; not a clinical calculation. */
+  /** Integer from 0 to 100. Backend owns scoring; mock scores are hand-assigned. */
   priorityScore: number;
+  /** UTC detection date, YYYY-MM-DD; not the publication date. */
   date: string;
   headline: string;
   previousInformation: string;
   newInformation: string;
   /** Exact phrase in newInformation, editorially selected for the mock comparison. */
-  highlightedChange: string;
+  highlightedChange?: string;
   /** Handwritten placeholder for a future AI-generated summary. */
-  aiSummary: string;
+  aiSummary?: string;
   intelligenceBrief: {
     whatChanged: string;
     whyItMatters: string;
     whoMayBeAffected: string;
   };
-  /** Display-only mock attribution, not a verified FDA citation. */
-  source: string;
-  evidence: SourceEvidence;
+  source: SourceEvidence;
   timeline: TimelineEvent[];
+}
+
+/** Proposed aggregate API response; endpoint not implemented in the backend yet. */
+export interface MedicationAlertsResponse {
+  alerts: MedicationAlert[];
+  /** UTC ISO timestamp for feed refresh, or null when unknown. */
+  updatedAt: string | null;
 }

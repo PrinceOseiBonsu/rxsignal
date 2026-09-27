@@ -34,7 +34,7 @@ export default function AlertCard({ alert }: { alert: MedicationAlert }) {
           </div>
         </div>
         <div className="alert-footer">
-          <span title={alert.source}>FDA source <span className="mock-tag">MOCK</span></span>
+          <span title={alert.source.name}>FDA source <span className="mock-tag">MOCK</span></span>
           <span className="alert-action" id={`alert-action-${alert.id}`}>
             View intelligence <ArrowUpRight size={16} aria-hidden="true" />
           </span>

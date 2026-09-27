@@ -29,11 +29,10 @@ export const alerts: MedicationAlert[] = [
         "This demo represents a major safety change that should appear prominently in the interface.",
       whoMayBeAffected: "Fictional adult patients receiving repeated treatment courses.",
     },
-    source: "U.S. Food and Drug Administration — mock attribution; no real FDA notice",
-    evidence: {
-      publisher: "U.S. Food & Drug Administration",
+    source: {
+      name: "U.S. Food & Drug Administration",
       sourceType: "Drug labeling update",
-      publishedAt: null,
+      publishedDate: null,
       url: null,
       isMock: true,
     },
@@ -65,11 +64,10 @@ export const alerts: MedicationAlert[] = [
         "This demo lets the interface show an important safety update below the critical alert.",
       whoMayBeAffected: "Fictional patients also receiving Fictional Compound X.",
     },
-    source: "U.S. Food and Drug Administration — mock attribution; no real FDA notice",
-    evidence: {
-      publisher: "U.S. Food & Drug Administration",
+    source: {
+      name: "U.S. Food & Drug Administration",
       sourceType: "Drug labeling update",
-      publishedAt: null,
+      publishedDate: null,
       url: null,
       isMock: true,
     },
@@ -101,11 +99,10 @@ export const alerts: MedicationAlert[] = [
         "This demo provides a lower-priority label update for comparison and filtering.",
       whoMayBeAffected: "Fictional adults aged 65 and older receiving this demo medication.",
     },
-    source: "U.S. Food and Drug Administration — mock attribution; no real FDA notice",
-    evidence: {
-      publisher: "U.S. Food & Drug Administration",
+    source: {
+      name: "U.S. Food & Drug Administration",
       sourceType: "Drug labeling update",
-      publishedAt: null,
+      publishedDate: null,
       url: null,
       isMock: true,
     },

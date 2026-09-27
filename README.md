@@ -36,8 +36,8 @@ After a successful build, `npm start` runs the production app locally.
 
 ## Phase 1 preview
 
-- `/`: project landing page.
-- `/onboarding`: onboarding placeholder.
+- `/`: redirects to onboarding.
+- `/onboarding`: specialty selection and demo entry.
 - `/dashboard`: interactive medication dashboard with three fictional alerts.
 - `/medication/demo-medication-a`: shared mock alert details.
 - Unknown medication IDs display the not-found page.
@@ -140,7 +140,7 @@ have null publication dates and URLs: the UI shows unavailable metadata and a
 disabled evidence button with an explanation. No generic FDA page is presented
 as supporting evidence.
 
-`SourceEvidence` accepts publisher, sourceType, publishedAt, url, and isMock.
+`SourceEvidence` accepts name, sourceType, publishedDate, url, and isMock.
 Non-mock records with an HTTPS FDA URL open evidence in a new tab. URL host
 validation is a technical guard, not verification that a document supports a claim.
 The backend must supply the matching record-specific source.
@@ -158,3 +158,21 @@ The latest event starts selected. Click/tap or focus and press Enter/Space to
 read an event description. On narrow screens, scroll the horizontal event track;
 the rest of the page remains within the viewport. Dates are evenly spaced for
 readability, not proportional to elapsed time. Missing events show an empty state.
+
+## Phase 11 onboarding
+
+The root URL opens a focused onboarding screen without dashboard navigation.
+Choose Cardiology, Oncology, Emergency Medicine, Internal Medicine, or Other
+using accessible radio cards. Continue is enabled after selection and opens
+`/dashboard?specialty=...`, where the choice appears as demo context. The query
+parameter is temporary navigation state, not a saved profile or filter. All
+specialties use the same fictional feed. Direct dashboard access remains available.
+No account, password, database, or backend request is involved.
+
+## Phase 12 API contract
+
+The shared MedicationAlert type now uses structured `source` metadata and a
+boolean `isMock`; both mock records and future live responses can match it.
+See [the backend handoff](docs/BACKEND_HANDOFF.md) and
+[example response](docs/medication-alerts.example.json). This is a proposed
+contract, not a completed live integration or an agreement already sent to Prince.

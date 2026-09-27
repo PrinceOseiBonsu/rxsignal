@@ -29,13 +29,13 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
         </div>
         <dl className="detail-metadata">
           <div><dt><CalendarDays size={15} aria-hidden="true" /> Date detected</dt><dd><time dateTime={medication.date}>{formatDate(medication.date)}</time></dd></div>
-          <div><dt><Database size={15} aria-hidden="true" /> FDA source <span className="mock-tag">MOCK</span></dt><dd>{medication.source}</dd></div>
+          <div><dt><Database size={15} aria-hidden="true" /> FDA source <span className="mock-tag">MOCK</span></dt><dd>{medication.source.name}{medication.source.isMock && " — mock attribution"}</dd></div>
         </dl>
       </section>
       <p className="detail-demo-notice"><span className="mock-tag">DEMO</span>{mockDataNotice}</p>
       <WhatChanged alert={medication} />
       <IntelligenceBrief brief={medication.intelligenceBrief} />
-      <SourceEvidence evidence={medication.evidence} />
+      <SourceEvidence evidence={medication.source} />
       <MedicationTimeline key={medication.id} events={medication.timeline} />
     </section>
   );

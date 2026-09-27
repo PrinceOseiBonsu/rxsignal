@@ -3,7 +3,8 @@ import { formatDate } from "@/lib/dashboard";
 import type { MedicationAlert } from "@/types/medication";
 
 export default function WhatChanged({ alert }: { alert: MedicationAlert }) {
-  const position = alert.highlightedChange ? alert.newInformation.indexOf(alert.highlightedChange) : -1;
+  const highlightedChange = alert.highlightedChange ?? "";
+  const position = highlightedChange ? alert.newInformation.indexOf(highlightedChange) : -1;
   return (
     <section className="change-comparison" aria-labelledby="what-changed-title">
       <div className="change-heading">
@@ -20,8 +21,8 @@ export default function WhatChanged({ alert }: { alert: MedicationAlert }) {
           <h3><PlusCircle size={17} aria-hidden="true" /><span>New information<small>NOW</small></span></h3>
           <p>{position < 0 ? alert.newInformation : <>
             {alert.newInformation.slice(0, position)}
-            <mark>{alert.highlightedChange}</mark>
-            {alert.newInformation.slice(position + alert.highlightedChange.length)}
+            <mark>{highlightedChange}</mark>
+            {alert.newInformation.slice(position + highlightedChange.length)}
           </>}</p>
           <span className="change-label">{alert.severity === "critical" ? "Major safety change" : alert.severity === "high" ? "Safety warning expanded" : "Guidance clarified"}</span>
         </article>
