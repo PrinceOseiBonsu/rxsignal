@@ -1,33 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Activity, Bell, ChevronDown } from "lucide-react";
-import { alerts } from "@/data/mockData";
+import { getAlerts } from "@/lib/api";
+import { alertHeadline } from "@/lib/dashboard";
+import type { SignalAlert } from "@/types/medication";
 
 export default function Header() {
-  const critical = alerts.filter((alert) => alert.severity === "critical");
+  const [alerts, setAlerts] = useState<SignalAlert[]>([]);
+  const [unavailable, setUnavailable] = useState(false);
+  useEffect(() => {
+    let active = true;
+    getAlerts().then((feed) => { if (active) setAlerts(feed.alerts); }).catch(() => { if (active) setUnavailable(true); });
+    return () => { active = false; };
+  }, []);
+  const highPriority = alerts.filter((alert) => alert.priority_level === "high");
   return (
     <header className="app-header">
-      <Link href="/dashboard" className="brand" aria-label="RxSignal dashboard">
-        <span className="brand-icon"><Activity size={25} aria-hidden="true" /></span>
-        <span>RxSignal<span className="brand-dot">.</span></span>
-      </Link>
+      <Link href="/dashboard" className="brand" aria-label="RxSignal dashboard"><span className="brand-icon"><Activity size={25} aria-hidden="true" /></span><span>RxSignal<span className="brand-dot">.</span></span></Link>
       <span className="header-caption">MEDICATION INTELLIGENCE</span>
       <div className="header-actions">
-        <details className="notifications">
-          <summary aria-label={`Notifications: ${critical.length} critical updates`}>
-            <Bell size={20} aria-hidden="true" /><span className="notification-dot" />
-          </summary>
-          <div className="notification-panel">
-            <strong>Priority updates</strong><p>From your demo medication feed</p>
-            {critical.map((alert) => <Link key={alert.id} href={`/medication/${alert.id}`}>{alert.drugName}<span>{alert.headline}</span></Link>)}
-            {!critical.length && <p>You have no critical updates.</p>}
-          </div>
-        </details>
-        <details className="profile-menu">
-          <summary><span className="avatar">EC</span><span className="profile-name">Dr. Carter<small>Demo physician</small></span><ChevronDown size={14} aria-hidden="true" /></summary>
-          <div className="notification-panel"><strong>Dr. Evelyn Carter</strong><p>Demo profile · Internal medicine</p><p>This preview uses a sample profile. Account settings are not connected yet.</p></div>
-        </details>
+        <details className="notifications"><summary aria-label={`Notifications: ${highPriority.length} high-priority updates`}><Bell size={20} aria-hidden="true" />{highPriority.length > 0 && <span className="notification-dot" />}</summary><div className="notification-panel"><strong>High-priority updates</strong><p>{unavailable ? "Signal feed unavailable." : "Verified medication-label signals"}</p>{highPriority.map((alert) => <Link key={alert.id} href={`/medication/${alert.id}`}>{alert.medication_name}<span>{alertHeadline(alert)}</span></Link>)}{!unavailable && !highPriority.length && <p>No high-priority updates.</p>}</div></details>
+        <details className="profile-menu"><summary><span className="avatar">RX</span><span className="profile-name">Review workspace<small>Clinical intelligence</small></span><ChevronDown size={14} aria-hidden="true" /></summary><div className="notification-panel"><strong>RxSignal workspace</strong><p>Monitor, detect, prioritize, explain, and verify medication-label changes.</p><p>Clinical decision support only - not medical advice.</p></div></details>
       </div>
     </header>
   );

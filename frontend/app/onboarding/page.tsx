@@ -26,7 +26,7 @@ export default function OnboardingPage() {
         <form onSubmit={(event) => { event.preventDefault(); if (specialty) router.push(`/dashboard?specialty=${encodeURIComponent(specialty)}`); }}>
           <fieldset>
             <legend>What’s your specialty?</legend>
-            <p className="specialty-help">Choose one to begin your RxSignal preview.</p>
+            <p className="specialty-help">Choose a review lens for your workspace.</p>
             <div className="specialty-grid">
               {specialties.map(({ name, icon: Icon }) => (
                 <label className={`specialty-card ${specialty === name ? "selected" : ""}`} key={name}>
@@ -38,8 +38,8 @@ export default function OnboardingPage() {
           </fieldset>
           <button type="submit" className="onboarding-continue" disabled={!specialty}>Continue <ArrowRight size={18} aria-hidden="true" /></button>
         </form>
-        <p className="onboarding-demo">Explore as Dr. Carter · No account needed</p>
-        <p className="onboarding-note">This preview uses the same fictional alerts for every specialty.</p>
+        <p className="onboarding-status">Continue to the live medication intelligence workspace</p>
+        <p className="onboarding-note">Specialty selection adjusts workspace context. Signal evidence and priority remain unchanged.</p>
       </section>
       <p className="onboarding-footer">Medication intelligence. A clearer view of what matters.</p>
     </div>

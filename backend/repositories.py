@@ -199,6 +199,89 @@ class TigerSnapshotRepository:
 
         return [self._signal_from_row(row) for row in rows]
 
+    def list_all_detected_signals(self) -> list[SignalRecord]:
+        try:
+            with get_connection() as connection:
+                with connection.cursor(row_factory=dict_row) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT *
+                        FROM detected_signals
+                        ORDER BY detected_at DESC, id DESC
+                        """
+                    )
+                    rows = cursor.fetchall()
+        except Exception as exc:
+            raise SnapshotRepositoryError(
+                "Unable to load detected signals."
+            ) from exc
+
+        return [self._signal_from_row(row) for row in rows]
+
+    def get_detected_signal(self, signal_id: int) -> SignalRecord | None:
+        try:
+            with get_connection() as connection:
+                with connection.cursor(row_factory=dict_row) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT *
+                        FROM detected_signals
+                        WHERE id = %s
+                        """,
+                        (signal_id,),
+                    )
+                    row = cursor.fetchone()
+        except Exception as exc:
+            raise SnapshotRepositoryError(
+                "Unable to load detected signal."
+            ) from exc
+
+        return self._signal_from_row(row) if row else None
+
+    def get_snapshot_by_id(self, snapshot_id: int | None) -> SnapshotRecord | None:
+        if snapshot_id is None:
+            return None
+
+        try:
+            with get_connection() as connection:
+                with connection.cursor(row_factory=dict_row) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT *
+                        FROM label_snapshots
+                        WHERE id = %s
+                        ORDER BY captured_at DESC
+                        LIMIT 1
+                        """,
+                        (snapshot_id,),
+                    )
+                    row = cursor.fetchone()
+        except Exception as exc:
+            raise SnapshotRepositoryError(
+                "Unable to load label snapshot."
+            ) from exc
+
+        return self._snapshot_from_row(row) if row else None
+
+    def list_latest_snapshots(self) -> list[SnapshotRecord]:
+        try:
+            with get_connection() as connection:
+                with connection.cursor(row_factory=dict_row) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT DISTINCT ON (drug_key) *
+                        FROM label_snapshots
+                        ORDER BY drug_key, captured_at DESC, id DESC
+                        """
+                    )
+                    rows = cursor.fetchall()
+        except Exception as exc:
+            raise SnapshotRepositoryError(
+                "Unable to load monitored medications."
+            ) from exc
+
+        return [self._snapshot_from_row(row) for row in rows]
+
     @staticmethod
     def _snapshot_from_row(row: dict[str, Any]) -> SnapshotRecord:
         label = DrugLabel(

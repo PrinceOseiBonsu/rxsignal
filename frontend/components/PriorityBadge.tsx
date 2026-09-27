@@ -1,5 +1,5 @@
-import type { Severity } from "@/types/medication";
+import type { PriorityLevel } from "@/types/medication";
 
-export default function PriorityBadge({ severity }: { severity: Severity }) {
-  return <span className={`severity-badge ${severity}`}><span aria-hidden="true" />{severity}</span>;
+export default function PriorityBadge({ priority }: { priority: PriorityLevel }) {
+  return <span className={`severity-badge ${priority}`}><span aria-hidden="true" />{priority} priority</span>;
 }

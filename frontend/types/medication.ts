@@ -1,53 +1,126 @@
-export type Severity = "critical" | "high" | "moderate";
+export type PriorityLevel = "low" | "medium" | "high";
+export type MonitoredField =
+  | "indications_and_usage"
+  | "warnings"
+  | "boxed_warning"
+  | "contraindications"
+  | "adverse_reactions";
+export type ChangeType = "added" | "removed" | "modified";
 export type TimelineStatus = "normal" | "update" | "warning";
 
+export interface FieldChange {
+  field: MonitoredField;
+  change_type: ChangeType;
+  old_value: string[];
+  new_value: string[];
+}
+
+export interface SourceMetadata {
+  name: string;
+  url: string;
+}
+
+export interface AlertSnapshotEvidence {
+  id: number;
+  captured_at: string;
+  effective_time: string | null;
+  generic_name: string[];
+  brand_name: string[];
+  manufacturer: string[];
+  source: SourceMetadata;
+}
+
+export interface SignalAlert {
+  id: number;
+  drug_key: string;
+  medication_name: string;
+  detected_at: string;
+  previous_snapshot_id: number | null;
+  current_snapshot_id: number | null;
+  changed_fields: MonitoredField[];
+  changes: FieldChange[];
+  priority_score: number;
+  priority_level: PriorityLevel;
+  priority_reasons: string[];
+  previous_snapshot: AlertSnapshotEvidence | null;
+  current_snapshot: AlertSnapshotEvidence | null;
+}
+
+export interface MonitoredMedication {
+  drug_key: string;
+  medication_name: string;
+  generic_name: string[];
+  brand_name: string[];
+  latest_snapshot_at: string;
+  effective_time: string | null;
+  source: SourceMetadata;
+}
+
+export interface AlertsResponse {
+  alerts: SignalAlert[];
+  monitored_medications: MonitoredMedication[];
+  updated_at: string | null;
+}
+
+export interface DrugLabel {
+  generic_name: string[];
+  brand_name: string[];
+  manufacturer: string[];
+  indications_and_usage: string[];
+  warnings: string[];
+  boxed_warning: string[];
+  contraindications: string[];
+  adverse_reactions: string[];
+  effective_time: string | null;
+  source: SourceMetadata;
+}
+
+export interface SnapshotRecord {
+  id: number;
+  drug_key: string;
+  label: DrugLabel;
+  captured_at: string;
+}
+
+export interface SignalRecord {
+  id: number;
+  drug_key: string;
+  previous_snapshot_id: number | null;
+  current_snapshot_id: number | null;
+  detected_at: string;
+  changed_fields: MonitoredField[];
+  changes: FieldChange[];
+  priority_score: number;
+  priority_level: PriorityLevel;
+  priority_reasons: string[];
+}
+
+export interface HistoryResponse {
+  drug_key: string;
+  snapshot_count: number;
+  signal_count: number;
+  snapshot_order: string;
+  snapshots: SnapshotRecord[];
+  signals: SignalRecord[];
+}
+
+export interface IntelligenceBrief {
+  what_changed: string;
+  why_it_may_matter: string;
+  suggested_review: string;
+  evidence_summary: string;
+}
+
 export interface TimelineEvent {
-  /** ISO date (YYYY-MM-DD), so events can be sorted consistently. */
   date: string;
   status: TimelineStatus;
   label: string;
   description: string;
 }
 
-export interface SourceEvidence {
-  name: string;
-  sourceType: string;
-  /** ISO publication date from the source, distinct from detection date. */
-  publishedDate: string | null;
-  /** A record-specific official URL; null until supplied by the backend. */
-  url: string | null;
-  isMock: boolean;
-}
-
-export interface MedicationAlert {
-  id: string;
-  isMock: boolean;
-  drugName: string;
-  genericName?: string;
-  severity: Severity;
-  /** Integer from 0 to 100. Backend owns scoring; mock scores are hand-assigned. */
-  priorityScore: number;
-  /** UTC detection date, YYYY-MM-DD; not the publication date. */
-  date: string;
-  headline: string;
-  previousInformation: string;
-  newInformation: string;
-  /** Exact phrase in newInformation, editorially selected for the mock comparison. */
-  highlightedChange?: string;
-  /** Handwritten placeholder for a future AI-generated summary. */
-  aiSummary?: string;
-  intelligenceBrief: {
-    whatChanged: string;
-    whyItMatters: string;
-    whoMayBeAffected: string;
-  };
-  source: SourceEvidence;
-  timeline: TimelineEvent[];
-}
-
-/** Proposed aggregate API response; endpoint not implemented in the backend yet. */
-export interface MedicationAlertsResponse {
-  alerts: MedicationAlert[];
-  /** UTC ISO timestamp for feed refresh, or null when unknown. */
-  updatedAt: string | null;
+export interface MonitoringResult {
+  drug_key: string;
+  baseline_created: boolean;
+  has_changes: boolean;
+  message: string;
 }

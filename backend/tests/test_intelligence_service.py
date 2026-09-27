@@ -161,6 +161,8 @@ def test_prompt_contains_verified_evidence_and_grounding_constraints() -> None:
     assert "evidence is insufficient" in system_prompt
     assert "healthcare professional" in system_prompt
     assert "distinct from AI interpretation" in system_prompt
+    assert "synthetic or demonstration evidence" in system_prompt
+    assert "never describe the evidence as an FDA" in system_prompt
     assert '"medication_name":"metoprolol"' in evidence_prompt
     assert '"old_value":["Original warning."]' in evidence_prompt
     assert '"new_value":["Updated warning."]' in evidence_prompt

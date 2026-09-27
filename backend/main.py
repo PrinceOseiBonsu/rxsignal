@@ -1,12 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.models.alerts import AlertRecord, AlertsResponse
 from backend.models.change import ChangeComparisonRequest, ChangeDetectionResult
 from backend.models.drug import DrugLabel
 from backend.models.history import HistoryResult, MonitoringResult
 from backend.models.intelligence import IntelligenceBrief, IntelligenceEvidence
 from backend.models.priority import PriorityResult
 from backend.repositories import SnapshotRepositoryError, TigerSnapshotRepository
+from backend.services.alert_service import AlertNotFoundError, AlertService
 from backend.services.change_detector import ChangeDetector
 from backend.services.fda_service import FDAService, FDAServiceError, DrugNotFoundError
 from backend.services.intelligence_service import (
@@ -43,6 +45,7 @@ monitoring_service = MonitoringService(
     priority_engine=priority_engine,
 )
 intelligence_service = IntelligenceService()
+alert_service = AlertService(snapshot_repository)
 
 
 @app.get("/api/health")
@@ -87,6 +90,24 @@ def monitor_drug(drug_name: str) -> MonitoringResult:
 def get_drug_history(drug_name: str) -> HistoryResult:
     try:
         return monitoring_service.get_history(drug_name)
+    except SnapshotRepositoryError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@app.get("/api/alerts", response_model=AlertsResponse)
+def get_alerts() -> AlertsResponse:
+    try:
+        return alert_service.list_alerts()
+    except SnapshotRepositoryError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@app.get("/api/alerts/{signal_id}", response_model=AlertRecord)
+def get_alert(signal_id: int) -> AlertRecord:
+    try:
+        return alert_service.get_alert(signal_id)
+    except AlertNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     except SnapshotRepositoryError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 

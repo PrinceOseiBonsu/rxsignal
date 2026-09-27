@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "RxSignal | Medication intelligence",
-  description: "Medication safety intelligence — fictional development preview",
+  description: "Verified medication-label monitoring and grounded intelligence",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
