@@ -6,6 +6,17 @@ export interface TimelineEvent {
   date: string;
   status: TimelineStatus;
   label: string;
+  description: string;
+}
+
+export interface SourceEvidence {
+  publisher: string;
+  sourceType: string;
+  /** ISO publication date from the source, distinct from detection date. */
+  publishedAt: string | null;
+  /** A record-specific official URL; null until supplied by the backend. */
+  url: string | null;
+  isMock: boolean;
 }
 
 export interface MedicationAlert {
@@ -31,5 +42,6 @@ export interface MedicationAlert {
   };
   /** Display-only mock attribution, not a verified FDA citation. */
   source: string;
+  evidence: SourceEvidence;
   timeline: TimelineEvent[];
 }

@@ -30,10 +30,17 @@ export const alerts: MedicationAlert[] = [
       whoMayBeAffected: "Fictional adult patients receiving repeated treatment courses.",
     },
     source: "U.S. Food and Drug Administration — mock attribution; no real FDA notice",
+    evidence: {
+      publisher: "U.S. Food & Drug Administration",
+      sourceType: "Drug labeling update",
+      publishedAt: null,
+      url: null,
+      isMock: true,
+    },
     timeline: [
-      { date: "2024-01-15", status: "normal", label: "Mock initial label" },
-      { date: "2025-06-10", status: "update", label: "Mock monitoring update" },
-      { date: "2026-09-01", status: "warning", label: "Mock boxed warning" },
+      { date: "2024-01-15", status: "normal", label: "Mock initial label", description: "Initial fictional label included routine monitoring, without a boxed warning." },
+      { date: "2025-06-10", status: "update", label: "Mock monitoring update", description: "Fictional monitoring information was updated ahead of the later warning." },
+      { date: "2026-09-01", status: "warning", label: "Mock boxed warning", description: "A fictional boxed warning was added for serious reactions during repeated treatment." },
     ],
   },
   {
@@ -59,10 +66,17 @@ export const alerts: MedicationAlert[] = [
       whoMayBeAffected: "Fictional patients also receiving Fictional Compound X.",
     },
     source: "U.S. Food and Drug Administration — mock attribution; no real FDA notice",
+    evidence: {
+      publisher: "U.S. Food & Drug Administration",
+      sourceType: "Drug labeling update",
+      publishedAt: null,
+      url: null,
+      isMock: true,
+    },
     timeline: [
-      { date: "2024-03-20", status: "normal", label: "Mock initial label" },
-      { date: "2025-11-12", status: "update", label: "Mock interaction review" },
-      { date: "2026-09-08", status: "warning", label: "Mock interaction warning" },
+      { date: "2024-03-20", status: "normal", label: "Mock initial label", description: "Initial fictional label contained a general interaction precaution." },
+      { date: "2025-11-12", status: "update", label: "Mock interaction review", description: "A fictional review examined the interaction wording." },
+      { date: "2026-09-08", status: "warning", label: "Mock interaction warning", description: "A fictional warning now names the combination with Fictional Compound X." },
     ],
   },
   {
@@ -88,10 +102,17 @@ export const alerts: MedicationAlert[] = [
       whoMayBeAffected: "Fictional adults aged 65 and older receiving this demo medication.",
     },
     source: "U.S. Food and Drug Administration — mock attribution; no real FDA notice",
+    evidence: {
+      publisher: "U.S. Food & Drug Administration",
+      sourceType: "Drug labeling update",
+      publishedAt: null,
+      url: null,
+      isMock: true,
+    },
     timeline: [
-      { date: "2024-05-02", status: "normal", label: "Mock initial label" },
-      { date: "2025-08-18", status: "update", label: "Mock population review" },
-      { date: "2026-09-15", status: "update", label: "Mock guidance clarification" },
+      { date: "2024-05-02", status: "normal", label: "Mock initial label", description: "Initial fictional label provided general follow-up information." },
+      { date: "2025-08-18", status: "update", label: "Mock population review", description: "A fictional review considered follow-up wording for older adults." },
+      { date: "2026-09-15", status: "update", label: "Mock guidance clarification", description: "Fictional follow-up guidance for adults aged 65 and older was clarified." },
     ],
   },
 ];

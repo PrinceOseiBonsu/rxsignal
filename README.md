@@ -131,3 +131,30 @@ pass `brief` when ready. The exported `IntelligenceBriefSkeleton` includes a
 loading announcement and reduced-motion support. No artificial delay or Gemini
 request is added to the current mock flow. Live integration will also need
 error handling and accurate provenance once the backend contract is agreed.
+
+## Phase 9 source evidence
+
+A separate Source Evidence panel identifies the FDA publisher and source type,
+with a publication date independent of detection date. Current fictional records
+have null publication dates and URLs: the UI shows unavailable metadata and a
+disabled evidence button with an explanation. No generic FDA page is presented
+as supporting evidence.
+
+`SourceEvidence` accepts publisher, sourceType, publishedAt, url, and isMock.
+Non-mock records with an HTTPS FDA URL open evidence in a new tab. URL host
+validation is a technical guard, not verification that a document supports a claim.
+The backend must supply the matching record-specific source.
+
+The inspected backend-prince source model at 1706ba5 has a generic openFDA
+endpoint URL and effective_time, not a publication date or record-specific
+evidence URL. Do not map effective_time or alert detection date to publication
+date without establishing its meaning. Those fields remain pending integration.
+
+## Phase 10 medication timeline
+
+`MedicationTimeline` displays chronological label events inside medication details.
+Normal, update, and warning events use green, yellow, and red, plus text labels.
+The latest event starts selected. Click/tap or focus and press Enter/Space to
+read an event description. On narrow screens, scroll the horizontal event track;
+the rest of the page remains within the viewport. Dates are evenly spaced for
+readability, not proportional to elapsed time. Missing events show an empty state.

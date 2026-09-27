@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, Database } from "lucide-react";
+import MedicationTimeline from "@/components/MedicationTimeline";
+import SourceEvidence from "@/components/SourceEvidence";
 import IntelligenceBrief from "@/components/IntelligenceBrief";
 import WhatChanged from "@/components/WhatChanged";
 import PriorityBadge from "@/components/PriorityBadge";
@@ -33,16 +35,8 @@ export default async function MedicationPage({ params }: { params: Promise<{ id:
       <p className="detail-demo-notice"><span className="mock-tag">DEMO</span>{mockDataNotice}</p>
       <WhatChanged alert={medication} />
       <IntelligenceBrief brief={medication.intelligenceBrief} />
-      <section className="detail-information" aria-labelledby="detail-timeline-title">
-      <h2 id="detail-timeline-title">Timeline (mock)</h2>
-      <ol className="list-inside list-decimal space-y-2">
-        {medication.timeline.map((event) => (
-          <li key={event.date}>
-            <time dateTime={event.date}>{formatDate(event.date)}</time> — {event.label} ({event.status})
-          </li>
-        ))}
-      </ol>
-      </section>
+      <SourceEvidence evidence={medication.evidence} />
+      <MedicationTimeline key={medication.id} events={medication.timeline} />
     </section>
   );
 }
