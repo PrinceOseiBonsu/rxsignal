@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AlertCircle, CheckCircle2, Plus, RefreshCw } from "lucide-react";
 import { ApiError, monitorMedication } from "@/lib/api";
+import { ALERTS_CHANGED_EVENT } from "@/lib/dashboard";
 
 type MonitorStatus = {
   kind: "success" | "error";
@@ -49,6 +50,7 @@ export default function MonitorMedicationForm() {
 
           setDrugName("");
           router.refresh();
+          window.dispatchEvent(new Event(ALERTS_CHANGED_EVENT));
         } catch (error) {
           setStatus({
             kind: "error",

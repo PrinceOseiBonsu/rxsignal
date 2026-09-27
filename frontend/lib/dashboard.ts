@@ -1,6 +1,7 @@
 import type { AlertsResponse, HistoryResponse, MonitoredField, SignalAlert, SourceMetadata, TimelineEvent } from "@/types/medication";
 
 export const SYNTHETIC_SOURCE_NAME = "RxSignal synthetic demonstration";
+export const ALERTS_CHANGED_EVENT = "rxsignal:alerts-changed";
 
 export function isSyntheticSource(source: SourceMetadata | null | undefined) {
   return source?.name === SYNTHETIC_SOURCE_NAME;
