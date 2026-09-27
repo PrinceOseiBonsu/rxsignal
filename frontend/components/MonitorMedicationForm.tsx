@@ -69,9 +69,9 @@ export default function MonitorMedicationForm() {
           <Plus size={18} />
         </span>
         <div>
-          <p className="eyebrow">FDA label monitoring</p>
+          <p className="eyebrow">START MONITORING</p>
           <h2>Monitor a medication</h2>
-          <p>Save the current FDA label as a baseline or check an existing baseline for a verified change.</p>
+          <p>Enter a medication to save its current FDA label as a baseline. Future checks are compared against it.</p>
         </div>
       </div>
 

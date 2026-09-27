@@ -25,7 +25,7 @@ export default function AlertCard({ alert }: { alert: SignalAlert }) {
         </div>
         <div className="alert-footer">
           <span title={alert.current_snapshot?.source.name}>{synthetic ? "RxSignal synthetic demonstration" : "FDA label evidence"}</span>
-          <span className="alert-action" id={`alert-action-${alert.id}`}>Review signal <ArrowUpRight size={16} aria-hidden="true" /></span>
+          <span className="alert-action" id={`alert-action-${alert.id}`}>Review change <ArrowUpRight size={16} aria-hidden="true" /></span>
         </div>
       </Link>
     </article>
