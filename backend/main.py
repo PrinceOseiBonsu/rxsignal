@@ -4,10 +4,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.models.change import ChangeComparisonRequest, ChangeDetectionResult
 from backend.models.drug import DrugLabel
 from backend.models.history import HistoryResult, MonitoringResult
+from backend.models.intelligence import IntelligenceBrief, IntelligenceEvidence
 from backend.models.priority import PriorityResult
 from backend.repositories import SnapshotRepositoryError, TigerSnapshotRepository
 from backend.services.change_detector import ChangeDetector
 from backend.services.fda_service import FDAService, FDAServiceError, DrugNotFoundError
+from backend.services.intelligence_service import (
+    IntelligenceConfigurationError,
+    IntelligenceService,
+    IntelligenceServiceError,
+    IntelligenceValidationError,
+)
 from backend.services.monitoring_service import MonitoringService
 from backend.services.priority_engine import PriorityEngine
 
@@ -35,6 +42,7 @@ monitoring_service = MonitoringService(
     change_detector=change_detector,
     priority_engine=priority_engine,
 )
+intelligence_service = IntelligenceService()
 
 
 @app.get("/api/health")
@@ -81,3 +89,26 @@ def get_drug_history(drug_name: str) -> HistoryResult:
         return monitoring_service.get_history(drug_name)
     except SnapshotRepositoryError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@app.post("/api/intelligence", response_model=IntelligenceBrief)
+def generate_intelligence_brief(
+    evidence: IntelligenceEvidence,
+) -> IntelligenceBrief:
+    try:
+        return intelligence_service.generate_brief(evidence)
+    except IntelligenceConfigurationError as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Intelligence service is not configured.",
+        ) from exc
+    except IntelligenceServiceError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="Intelligence service is temporarily unavailable.",
+        ) from exc
+    except IntelligenceValidationError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="Intelligence service returned an invalid response.",
+        ) from exc
